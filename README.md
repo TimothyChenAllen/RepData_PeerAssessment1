@@ -1,9 +1,18 @@
 ## Introduction
 
+*Note: This README is modified from the original*
+
 This project is an analysis of data from a personal activity monitoring
 device that collected data, including number of steps, from an anonymous
 individual at 5 minute intervals throughout the
 day during the months of October and November, 2012.
+
+## Scripts
+
+* `PA1_template.Rmd` - Downloads data, cleans it, and performs analysis
+
+* `unit_test.R` - Clears environment to clean slate and creates HTML from
+the `PA1_template.Rmd` Markdown file.
 
 ## Data
 
