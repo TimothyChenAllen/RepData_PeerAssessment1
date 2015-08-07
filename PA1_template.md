@@ -90,7 +90,7 @@ print(xtable(head(activity)), type="html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 12:34:11 2015 -->
+<!-- Fri Aug 07 13:26:27 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> steps </th> <th> date </th> <th> interval </th>  </tr>
   <tr> <td align="right"> 1 </td> <td align="right">   0 </td> <td> 2012-10-02 </td> <td align="right">   0 </td> </tr>
@@ -118,13 +118,13 @@ daily.steps <- activity %>%
 Make a histogram of the total number of steps taken each day
 
 ```r
-hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps",
-     ylab="Frequency", col="dark red", density=20)
+hist(daily.steps$steps.sum, main="Total number of steps taken each day",
+     xlab="Total Steps", ylab="Frequency", col="dark red", density=20)
 ```
 
 ![plot of chunk B2.daily.steps.hist](figure/B2.daily.steps.hist-1.png) 
 
-### B.3. Report median and mean
+### B.3. Report median and mean number of steps taken each day
 Calculate and report the mean and median of the total number of steps taken
 per day
 
@@ -147,7 +147,7 @@ median(daily.steps$steps.sum)
 ***************************************
 
 ## C. What is the average daily activity pattern?
-### C.1. Time Series: steps per interval
+### C.1. Time Series: average steps per 5-minute interval
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) 
 and the average number of steps taken, averaged across all days (y-axis)
 
@@ -160,7 +160,7 @@ plot(steps.ts, type="l", col="blue", lwd=2,
 
 ![plot of chunk C1.mean.steps.per.interval](figure/C1.mean.steps.per.interval-1.png) 
 
-### C.2. Most Active Interval?
+### C.2. Most Active 5-minute Interval?
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 ```r
@@ -171,7 +171,11 @@ The 5-minute interval, **835**, on average across all the days in the dataset, c
 ***************************************
 
 ## D. Imputing missing values
-Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
+*Strategy for filling in the missing values in the dataset:*
+Replace the missing values with the mean for that 5-minute interval by
+separating missing and complete cases, then using `left_join` to
+replace the missing value with the appropriate average steps for
+that 5-minute interval.
 
 ### D.1. Number of Missing Step Values?
 Calculate and report the total number of missing values in the dataset 
@@ -185,10 +189,13 @@ sum(is.na(activity.raw$steps))
 ## [1] 2304
 ```
 
-### D.2. Impute Values from Mean Steps per Interval
-Devise a strategy for filling in all of the missing values in the dataset. The
-strategy does not need to be sophisticated. For example, you could use the
-mean/median for that day, or the mean for that 5-minute interval, etc.
+### D.2. Strategy to Impute Values from Mean Steps per Interval
+Strategy for filling in the missing values in the dataset:
+Replace the missing values with the mean for that 5-minute interval by
+separating missing and complete cases, then using `left_join` to
+replace the missing value with the appropriate average steps for
+that 5-minute interval.
+
 
 ```r
 # Find both incomplete and complete cases
@@ -236,8 +243,9 @@ daily.complete.steps <- whole.activites %>%
 par(mfrow=c(2,1))
 
 hist(daily.complete.steps$steps.sum, 
-     main="Total Steps per Day\n(Complete Cases)", xlab="Total Steps",
-     ylab="Frequency", col="dark red", density=20)
+     main="Total Steps per Day\n(Complete with Imputed Data)",
+     xlab="Total Steps",
+     ylab="Frequency", col="dark green", density=20)
 
 hist(daily.steps$steps.sum, 
      main="Total Steps per Day\n(Original, Removing Incomplete Cases)",
@@ -266,7 +274,7 @@ print(xtable(res), type = "html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 12:34:11 2015 -->
+<!-- Fri Aug 07 13:26:28 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> Mean </th> <th> Median </th> <th> Difference </th>  </tr>
   <tr> <td align="right"> Original Data </td> <td align="right"> 10766.19 </td> <td align="right"> 10765.00 </td> <td align="right"> 1.19 </td> </tr>
