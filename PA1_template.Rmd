@@ -59,7 +59,8 @@ daily.steps <- activity %>%
 ### B.2. Histogram: Steps per day
 Make a histogram of the total number of steps taken each day
 ```{r daily.steps.hist, echo=TRUE}
-hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps", ylab="Frequency", col="dark red", density=20)
+hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps",
+     ylab="Frequency", col="dark red", density=20)
 ```
 
 ### B.3. Report median and mean
@@ -78,7 +79,9 @@ Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis)
 and the average number of steps taken, averaged across all days (y-axis)
 ```{r mean.steps.per.interval, echo=TRUE}
 steps.ts <- activity %>% group_by(interval) %>% summarize(mean.steps=mean(steps))
-plot(steps.ts, type="l", col="blue", lwd=2, main="Mean Steps over 5-minute Intervals", xlab="Minutes", ylab="Mean Steps")
+plot(steps.ts, type="l", col="blue", lwd=2, 
+     main="Mean Steps over 5-minute Intervals", xlab="Minutes", 
+     ylab="Mean Steps")
 ```
 
 ### C.2. Most Active Interval?
@@ -143,9 +146,13 @@ daily.complete.steps <- whole.activites %>%
 # imputing missing values
 par(mfrow=c(2,1))
 
-hist(daily.complete.steps$steps.sum, main="Total Steps per Day\n(Complete Cases)", xlab="Total Steps", ylab="Frequency", col="dark red", density=20)
+hist(daily.complete.steps$steps.sum, 
+     main="Total Steps per Day\n(Complete Cases)", xlab="Total Steps",
+     ylab="Frequency", col="dark red", density=20)
 
-hist(daily.steps$steps.sum, main="Total Steps per Day\n(Original, Removing Incomplete Cases)", xlab="Total Steps", ylab="Frequency", col="gray40", density=20)
+hist(daily.steps$steps.sum, 
+     main="Total Steps per Day\n(Original, Removing Incomplete Cases)",
+     xlab="Total Steps", ylab="Frequency", col="gray40", density=20)
 
 # Create a small table to show how imputing values affects the mean
 # and median of total daily steps.

@@ -90,7 +90,7 @@ print(xtable(head(activity)), type="html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 12:20:49 2015 -->
+<!-- Fri Aug 07 12:27:49 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> steps </th> <th> date </th> <th> interval </th>  </tr>
   <tr> <td align="right"> 1 </td> <td align="right">   0 </td> <td> 2012-10-02 </td> <td align="right">   0 </td> </tr>
@@ -118,7 +118,8 @@ daily.steps <- activity %>%
 Make a histogram of the total number of steps taken each day
 
 ```r
-hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps", ylab="Frequency", col="dark red", density=20)
+hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps",
+     ylab="Frequency", col="dark red", density=20)
 ```
 
 ![plot of chunk daily.steps.hist](figure/daily.steps.hist-1.png) 
@@ -152,7 +153,9 @@ and the average number of steps taken, averaged across all days (y-axis)
 
 ```r
 steps.ts <- activity %>% group_by(interval) %>% summarize(mean.steps=mean(steps))
-plot(steps.ts, type="l", col="blue", lwd=2, main="Mean Steps over 5-minute Intervals", xlab="Minutes", ylab="Mean Steps")
+plot(steps.ts, type="l", col="blue", lwd=2, 
+     main="Mean Steps over 5-minute Intervals", xlab="Minutes", 
+     ylab="Mean Steps")
 ```
 
 ![plot of chunk mean.steps.per.interval](figure/mean.steps.per.interval-1.png) 
@@ -232,9 +235,13 @@ daily.complete.steps <- whole.activites %>%
 # imputing missing values
 par(mfrow=c(2,1))
 
-hist(daily.complete.steps$steps.sum, main="Total Steps per Day\n(Complete Cases)", xlab="Total Steps", ylab="Frequency", col="dark red", density=20)
+hist(daily.complete.steps$steps.sum, 
+     main="Total Steps per Day\n(Complete Cases)", xlab="Total Steps",
+     ylab="Frequency", col="dark red", density=20)
 
-hist(daily.steps$steps.sum, main="Total Steps per Day\n(Original, Removing Incomplete Cases)", xlab="Total Steps", ylab="Frequency", col="gray40", density=20)
+hist(daily.steps$steps.sum, 
+     main="Total Steps per Day\n(Original, Removing Incomplete Cases)",
+     xlab="Total Steps", ylab="Frequency", col="gray40", density=20)
 ```
 
 ![plot of chunk complete.steps.hist](figure/complete.steps.hist-1.png) 
@@ -259,7 +266,7 @@ print(xtable(res), type = "html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 12:20:50 2015 -->
+<!-- Fri Aug 07 12:27:50 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> Mean </th> <th> Median </th> <th> Difference </th>  </tr>
   <tr> <td align="right"> Original Data </td> <td align="right"> 10766.19 </td> <td align="right"> 10765.00 </td> <td align="right"> 1.19 </td> </tr>
