@@ -94,7 +94,8 @@ The 5-minute interval, **`r max.interval$interval`**, on average across all the 
 ***************************************
 
 ## D. Imputing missing values
-*Strategy for filling in the missing values in the dataset:*
+**Strategy for filling in the missing values in the dataset:**
+
 Replace the missing values with the mean for that 5-minute interval by
 separating missing and complete cases, then using `left_join` to
 replace the missing value with the appropriate average steps for
@@ -108,7 +109,8 @@ sum(is.na(activity.raw$steps))
 ```
 
 ### D.2. Strategy to Impute Values from Mean Steps per Interval
-Strategy for filling in the missing values in the dataset:
+**Strategy for filling in the missing values in the dataset**:
+
 Replace the missing values with the mean for that 5-minute interval by
 separating missing and complete cases, then using `left_join` to
 replace the missing value with the appropriate average steps for

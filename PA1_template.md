@@ -90,7 +90,7 @@ print(xtable(head(activity)), type="html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 13:26:27 2015 -->
+<!-- Fri Aug 07 13:30:13 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> steps </th> <th> date </th> <th> interval </th>  </tr>
   <tr> <td align="right"> 1 </td> <td align="right">   0 </td> <td> 2012-10-02 </td> <td align="right">   0 </td> </tr>
@@ -171,7 +171,8 @@ The 5-minute interval, **835**, on average across all the days in the dataset, c
 ***************************************
 
 ## D. Imputing missing values
-*Strategy for filling in the missing values in the dataset:*
+**Strategy for filling in the missing values in the dataset:**
+
 Replace the missing values with the mean for that 5-minute interval by
 separating missing and complete cases, then using `left_join` to
 replace the missing value with the appropriate average steps for
@@ -190,7 +191,8 @@ sum(is.na(activity.raw$steps))
 ```
 
 ### D.2. Strategy to Impute Values from Mean Steps per Interval
-Strategy for filling in the missing values in the dataset:
+**Strategy for filling in the missing values in the dataset**:
+
 Replace the missing values with the mean for that 5-minute interval by
 separating missing and complete cases, then using `left_join` to
 replace the missing value with the appropriate average steps for
@@ -274,7 +276,7 @@ print(xtable(res), type = "html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 13:26:28 2015 -->
+<!-- Fri Aug 07 13:30:14 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> Mean </th> <th> Median </th> <th> Difference </th>  </tr>
   <tr> <td align="right"> Original Data </td> <td align="right"> 10766.19 </td> <td align="right"> 10765.00 </td> <td align="right"> 1.19 </td> </tr>
