@@ -14,7 +14,7 @@ This assignment makes use of data from a personal activity monitoring device. Th
 
 ## A. Loading and preprocessing the data
 ### A.1. Load necessary libraries and use the right proxy
-```{r preliminaries, echo=TRUE}
+```{r A1.preliminaries, echo=TRUE}
 setInternet2(use=TRUE)
 require(dplyr)
 require(xtable)
@@ -27,7 +27,7 @@ require(lattice)
 If we do not already have the ZIP file, download it and unzip it.  We teach
 the computer how to get the data, instead of downloading it manually with
 the browser.
-```{r download.data, echo=TRUE}
+```{r A2.download.data, echo=TRUE}
 URL <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 if (!file.exists("activity.zip")) {
         download.file(URL, destfile="./activity.zip", method="internal",
@@ -36,7 +36,7 @@ if (!file.exists("activity.zip")) {
 }
 ```
 ### A.3. Read the CSV file.  
-```{r read.data, echo=TRUE, results='asis'}
+```{r A3.read.data, echo=TRUE, results='asis'}
 activity.raw <- read.csv(file="./activity.csv")
 # Convert to local table and remove NA steps  
 activity <- tbl_df(activity.raw) %>% filter(!is.na(steps))
@@ -49,7 +49,7 @@ print(xtable(head(activity)), type="html")
 ## B. What is mean total number of steps taken per day?
 ### B.1. Total Steps per day
 Calculate the total number of steps taken per day
-```{r total.steps, echo=TRUE}
+```{r A4.total.steps, echo=TRUE}
 # Use `dplyr` to group the data by day, and then summarize it
 daily.steps <- activity %>%
         group_by(date) %>%
@@ -58,7 +58,7 @@ daily.steps <- activity %>%
 
 ### B.2. Histogram: Steps per day
 Make a histogram of the total number of steps taken each day
-```{r daily.steps.hist, echo=TRUE}
+```{r B2.daily.steps.hist, echo=TRUE}
 hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps",
      ylab="Frequency", col="dark red", density=20)
 ```
@@ -66,7 +66,7 @@ hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps",
 ### B.3. Report median and mean
 Calculate and report the mean and median of the total number of steps taken
 per day
-```{r mean.median, echo=TRUE}
+```{r B3.mean.median, echo=TRUE}
 mean(daily.steps$steps.sum)
 median(daily.steps$steps.sum)
 ```
@@ -77,7 +77,7 @@ median(daily.steps$steps.sum)
 ### C.1. Time Series: steps per interval
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) 
 and the average number of steps taken, averaged across all days (y-axis)
-```{r mean.steps.per.interval, echo=TRUE}
+```{r C1.mean.steps.per.interval, echo=TRUE}
 steps.ts <- activity %>% group_by(interval) %>% summarize(mean.steps=mean(steps))
 plot(steps.ts, type="l", col="blue", lwd=2, 
      main="Mean Steps over 5-minute Intervals", xlab="Minutes", 
@@ -86,7 +86,7 @@ plot(steps.ts, type="l", col="blue", lwd=2,
 
 ### C.2. Most Active Interval?
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
-```{r which.max.interval, echo=TRUE}
+```{r C2.which.max.interval, echo=TRUE}
 max.interval <- steps.ts[which.max(steps.ts$mean.steps),]
 ```
 The 5-minute interval, **`r max.interval$interval`**, on average across all the days in the dataset, contains the maximum number of steps (**`r max.interval$mean.steps`**) steps.
@@ -99,7 +99,7 @@ Note that there are a number of days/intervals where there are missing values (c
 ### D.1. Number of Missing Step Values?
 Calculate and report the total number of missing values in the dataset 
 (i.e. the total number of rows with NAs)
-```{r count.missing, echo=TRUE}
+```{r D1.count.missing, echo=TRUE}
 sum(is.na(activity.raw$steps))
 ```
 
@@ -107,7 +107,7 @@ sum(is.na(activity.raw$steps))
 Devise a strategy for filling in all of the missing values in the dataset. The
 strategy does not need to be sophisticated. For example, you could use the
 mean/median for that day, or the mean for that 5-minute interval, etc.
-```{r impute.missing, echo=TRUE}
+```{r D2.impute.missing, echo=TRUE}
 # Find both incomplete and complete cases
 missing.activity <- tbl_df(activity.raw) %>% filter(is.na(steps))
 complete.activity <- tbl_df(activity.raw) %>% filter(!is.na(steps))
@@ -120,7 +120,7 @@ imputed.missing <- left_join(missing.activity, steps.ts) %>%
 ### D.3. Create Complete Cases
 Create a new dataset that is equal to the original dataset but with the missing
 data filled in.
-```{r complete.steps, echo=TRUE}
+```{r D3.complete.steps, echo=TRUE}
 # Complete the dataset by rbinding the imputed values with the 
 # complete cases; sort by date and interval again.
 whole.activites <- rbind(imputed.missing, complete.activity) %>% arrange(date,interval)
@@ -134,9 +134,9 @@ differ from the estimates from the first part of the assignment?
 What is the impact of imputing missing data on the estimates of the total
 daily number of steps?
 
-*The effect of imputing the the missin daily number of steps from 5-minute
+*The effect of imputing the the missing daily number of steps from 5-minute
 intervals is to bring the `mean` and `median` closer together.*
-```{r complete.steps.hist, echo=TRUE, results='asis'}
+```{r D4.complete.steps.hist, echo=TRUE, results='asis'}
 # Use `dplyr` to group the data by day, and then summarize it
 daily.complete.steps <- whole.activites %>%
         group_by(date) %>%
@@ -178,7 +178,7 @@ print(xtable(res), type = "html")
 ### E.1. Create `day.type` factor
 Create a new factor variable in the dataset with two levels -- "weekday" and 
 "weekend" indicating whether a given date is a weekday or weekend day.
-```{r weekdays, echo=TRUE}
+```{r E1.weekdays, echo=TRUE}
 whole.activities.days <- whole.activites %>% 
         mutate(weekday=weekdays(ymd(date)),
         day.type=ifelse(weekday %in% c("Saturday","Sunday"), "weekend", "weekday"))
@@ -188,7 +188,7 @@ whole.activities.days <- whole.activites %>%
 Make a panel plot containing a time series plot (i.e. type = "l") of the
 5-minute interval (x-axis) and the average number of steps taken, averaged
 across all weekday days or weekend days (y-axis).
-```{r weekend.vs.weekday}
+```{r E2.weekend.vs.weekday}
 daytype.interval.means <- whole.activities.days %>%
         group_by(day.type, interval) %>%
         summarize(steps.mean=mean(steps))

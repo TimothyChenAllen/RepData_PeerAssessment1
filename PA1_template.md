@@ -90,7 +90,7 @@ print(xtable(head(activity)), type="html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 12:27:49 2015 -->
+<!-- Fri Aug 07 12:34:11 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> steps </th> <th> date </th> <th> interval </th>  </tr>
   <tr> <td align="right"> 1 </td> <td align="right">   0 </td> <td> 2012-10-02 </td> <td align="right">   0 </td> </tr>
@@ -122,7 +122,7 @@ hist(daily.steps$steps.sum, main="Total Steps per Day", xlab="Total Steps",
      ylab="Frequency", col="dark red", density=20)
 ```
 
-![plot of chunk daily.steps.hist](figure/daily.steps.hist-1.png) 
+![plot of chunk B2.daily.steps.hist](figure/B2.daily.steps.hist-1.png) 
 
 ### B.3. Report median and mean
 Calculate and report the mean and median of the total number of steps taken
@@ -158,7 +158,7 @@ plot(steps.ts, type="l", col="blue", lwd=2,
      ylab="Mean Steps")
 ```
 
-![plot of chunk mean.steps.per.interval](figure/mean.steps.per.interval-1.png) 
+![plot of chunk C1.mean.steps.per.interval](figure/C1.mean.steps.per.interval-1.png) 
 
 ### C.2. Most Active Interval?
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -222,7 +222,7 @@ differ from the estimates from the first part of the assignment?
 What is the impact of imputing missing data on the estimates of the total
 daily number of steps?
 
-*The effect of imputing the the missin daily number of steps from 5-minute
+*The effect of imputing the the missing daily number of steps from 5-minute
 intervals is to bring the `mean` and `median` closer together.*
 
 ```r
@@ -244,7 +244,7 @@ hist(daily.steps$steps.sum,
      xlab="Total Steps", ylab="Frequency", col="gray40", density=20)
 ```
 
-![plot of chunk complete.steps.hist](figure/complete.steps.hist-1.png) 
+![plot of chunk D4.complete.steps.hist](figure/D4.complete.steps.hist-1.png) 
 
 ```r
 # Create a small table to show how imputing values affects the mean
@@ -266,7 +266,7 @@ print(xtable(res), type = "html")
 ```
 
 <!-- html table generated in R 3.2.1 by xtable 1.7-4 package -->
-<!-- Fri Aug 07 12:27:50 2015 -->
+<!-- Fri Aug 07 12:34:11 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> Mean </th> <th> Median </th> <th> Difference </th>  </tr>
   <tr> <td align="right"> Original Data </td> <td align="right"> 10766.19 </td> <td align="right"> 10765.00 </td> <td align="right"> 1.19 </td> </tr>
@@ -302,4 +302,4 @@ xyplot(steps.mean ~ interval | day.type, data = daytype.interval.means,
        ylab="Number of Steps", xlab="Interval")
 ```
 
-![plot of chunk weekend.vs.weekday](figure/weekend.vs.weekday-1.png) 
+![plot of chunk E2.weekend.vs.weekday](figure/E2.weekend.vs.weekday-1.png) 
